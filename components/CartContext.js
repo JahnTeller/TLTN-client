@@ -29,7 +29,6 @@ export function CartContextProvider({ children }) {
     }
     //console.log("res 1s", res.data);
   };
-  console.log(count, "count");
   async function removeProduct(productId) {
     setCount(count - 1);
     const res = await axios.post("api/cart", {
@@ -41,7 +40,6 @@ export function CartContextProvider({ children }) {
   }
   async function clearCart(userId) {
     const res = await axios.delete(`api/cart?userid=${userId}`);
-    console.log(res);
   }
   return (
     <CartContext.Provider

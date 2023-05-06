@@ -39,11 +39,15 @@ const Label = styled.label`
   fontweight: "bold";
   margin-right: 5px;
 `;
-const Label1 = styled.label`
-  fontsize: "1rem";
-  fontweight: "bold";
-  margin-right: 5px;
-  margin-left: 10px;
+const Search = styled.input`
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  appearance: none;
+  outline: none;
+  background-color: white;
+  margin-bottom: 10px;
 `;
 
 export default function ProductsGrid({ products }) {
@@ -68,13 +72,21 @@ export default function ProductsGrid({ products }) {
       setProducts(sortedArr);
     }
   };
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     axios.post("api/category").then((res) => setCategories(res.data));
   }, []);
+  const handlesearch = (event) => {
+    setSearch(event.target.value);
+  };
 
   return (
     <>
+      {" "}
+      <Label>Tìm Kiếm</Label>
+      <Search onChange={(ev) => handlesearch(ev)}></Search>
+      <br></br>
       <Label>Bộ lọc </Label>
       <Select onChange={(event) => handleSelected(event)} defaultValue={"init"}>
         <Option key="init" value="init">
@@ -88,7 +100,7 @@ export default function ProductsGrid({ products }) {
           ))}
       </Select>
       <br></br>
-      <Label1>Xếp theo </Label1>
+      <Label>Xếp theo </Label>
       <Select onChange={(event) => handleSort(event)} defaultValue={"initsort"}>
         <Option key="initsort" value="initsort">
           Mật định
@@ -100,16 +112,28 @@ export default function ProductsGrid({ products }) {
           Giá từ thấp đến cao
         </Option>
       </Select>
-
       <StyledProductsGrid>
         {products1?.length > 0 &&
           products1.map((product) =>
-            product.category == selected ? (
-              <ProductBox key={product._id} {...product} />
-            ) : (
-              selected == "init" && (
+            search == "" ? (
+              product.category == selected ? (
                 <ProductBox key={product._id} {...product} />
+              ) : (
+                selected == "init" && (
+                  <ProductBox key={product._id} {...product} />
+                )
               )
+            ) : (
+              product.title
+                .toLowerCase()
+                .includes(search.toLocaleLowerCase()) &&
+              (product.category == selected ? (
+                <ProductBox key={product._id} {...product} />
+              ) : (
+                selected == "init" && (
+                  <ProductBox key={product._id} {...product} />
+                )
+              ))
             )
           )}
       </StyledProductsGrid>

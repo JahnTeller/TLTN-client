@@ -156,7 +156,6 @@ export default function CartPage() {
       );
     },
   });
-  console.log("123", cartProducts);
   if (!session) {
     return <LoginMessage />;
   } else if (isSuccess) {
@@ -184,7 +183,7 @@ export default function CartPage() {
       <Center>
         <ColumnsWrapper>
           <Box>
-            <h2>Cart</h2>
+            <h2>Giỏ hàng</h2>
             {!cartProducts?.length && <div>Your cart is empty</div>}
             {cartProducts?.length > 0 && (
               <Table>
