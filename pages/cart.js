@@ -58,8 +58,9 @@ const ProductImageBox = styled.div`
 `;
 
 const QuantityLabel = styled.span`
-  padding: 0 15px;
+  padding: 0 10px;
   display: block;
+
   @media screen and (min-width: 768px) {
     display: inline-block;
     padding: 0 10px;
@@ -249,7 +250,7 @@ export default function CartPage() {
           {!!cartProducts?.length && (
             <Box>
               <form onSubmit={formik.handleSubmit}>
-                <h2>Order information</h2>
+                <h2>Thông tin đơn hàng</h2>
                 <Input
                   type="text"
                   placeholder="Họ và Tên"

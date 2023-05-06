@@ -87,7 +87,7 @@ export default function ProductsGrid({ products }) {
             </Option>
           ))}
       </Select>
-
+      <br></br>
       <Label1>Xếp theo </Label1>
       <Select onChange={(event) => handleSort(event)} defaultValue={"initsort"}>
         <Option key="initsort" value="initsort">
